@@ -1,0 +1,15 @@
+version: '3.5'
+services:
+
+  nasa-downloader:
+    image: nasa-downloader:latest
+    container_name: nasa-downloader
+    build:
+      dockerfile: Dockerfile
+      context: .
+    command: python download.py
+    environment:
+      TZ: "Asia/Shanghai"
+    volumes:
+      - "./:/app"
+      - "./DemNasa30:/app/DemNasa30"

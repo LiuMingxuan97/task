@@ -1,0 +1,92 @@
+version: '3.5'
+services:
+
+  maptile-downloader-china_14_1_img_w:
+    image: maptile-downloader:latest
+    container_name: maptile-downloader-china_14_1_img_w
+    build:
+      dockerfile: Dockerfile
+      context: .
+    command: python main.py --storename=tianditu --bounds=73.33,53.33,135.05,3.51 --zxy=14,11529,12000,5312,8032
+    environment:
+      TZ: Asia/Shanghai
+      MAPSTYLE: img_w
+    volumes:
+      - "./:/app"
+      - "./logs/logs-china_14_1_img_w:/app/logs"
+      - "./storage:/app/storage"
+
+  maptile-downloader-china_14_2_img_w:
+    image: maptile-downloader:latest
+    container_name: maptile-downloader-china_14_2_img_w
+    build:
+      dockerfile: Dockerfile
+      context: .
+    command: python main.py --storename=tianditu --bounds=73.33,53.33,135.05,3.51 --zxy=14,12001,12500,5312,8032
+    environment:
+      TZ: Asia/Shanghai
+      MAPSTYLE: img_w
+    volumes:
+      - "./:/app"
+      - "./logs/logs-china_14_2_img_w:/app/logs"
+      - "./storage:/app/storage"
+
+  maptile-downloader-china_14_3_img_w:
+    image: maptile-downloader:latest
+    container_name: maptile-downloader-china_14_3_img_w
+    build:
+      dockerfile: Dockerfile
+      context: .
+    command: python main.py --storename=tianditu --bounds=73.33,53.33,135.05,3.51 --zxy=14,12501,13000,5312,8032
+    environment:
+      TZ: Asia/Shanghai
+      MAPSTYLE: img_w
+    volumes:
+      - "./:/app"
+      - "./logs/logs-china_14_3_img_w:/app/logs"
+      - "./storage:/app/storage"
+
+  maptile-downloader-china_14_4_img_w:
+    image: maptile-downloader:latest
+    container_name: maptile-downloader-china_14_4_img_w
+    build:
+      dockerfile: Dockerfile
+      context: .
+    command: python main.py --storename=tianditu --bounds=73.33,53.33,135.05,3.51 --zxy=14,13001,13500,5312,8032
+    environment:
+      TZ: Asia/Shanghai
+      MAPSTYLE: img_w
+    volumes:
+      - "./:/app"
+      - "./logs/logs-china_14_4_img_w:/app/logs"
+      - "./storage:/app/storage"
+
+  maptile-downloader-china_14_5_img_w:
+    image: maptile-downloader:latest
+    container_name: maptile-downloader-china_14_5_img_w
+    build:
+      dockerfile: Dockerfile
+      context: .
+    command: python main.py --storename=tianditu --bounds=73.33,53.33,135.05,3.51 --zxy=14,13501,14000,5312,8032
+    environment:
+      TZ: Asia/Shanghai
+      MAPSTYLE: img_w
+    volumes:
+      - "./:/app"
+      - "./logs/logs-china_14_5_img_w:/app/logs"
+      - "./storage:/app/storage"
+
+  maptile-downloader-china_14_6_img_w:
+    image: maptile-downloader:latest
+    container_name: maptile-downloader-china_14_6_img_w
+    build:
+      dockerfile: Dockerfile
+      context: .
+    command: python main.py --storename=tianditu --bounds=73.33,53.33,135.05,3.51 --zxy=14,14001,14338,5312,8032
+    environment:
+      TZ: Asia/Shanghai
+      MAPSTYLE: img_w
+    volumes:
+      - "./:/app"
+      - "./logs/logs-china_14_6_img_w:/app/logs"
+      - "./storage:/app/storage"

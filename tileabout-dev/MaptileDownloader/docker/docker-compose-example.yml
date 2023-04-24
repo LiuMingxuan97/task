@@ -1,0 +1,17 @@
+version: '3.5'
+services:
+
+  maptile-downloader:
+    image: maptile-downloader:latest
+    container_name: maptile-downloader
+    build:
+      dockerfile: Dockerfile
+      context: .
+    command: python main.py --storename=${STORENAME} --bounds=${BOUNDS} --levels=${LEVELS} --zxy=${ZXY} --mbtiles=${MBTILES}
+    environment:
+      TZ: Asia/Shanghai
+      MAPSTYLE: 类型修改
+    volumes:
+      - "./:/app"
+      - "./logs:/app/logs"
+      - "./storage:/app/storage"

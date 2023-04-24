@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!-- 输出字符串  br 为换行-->
+    hello，world！<br/>
+    <!-- 输出超链接 -->
+    <a href="www.baidu.com">这是一个超链接</a><br/>
+    <!-- 输出一个变量-->
+    {{a}} <br/>
+    <!-- hr 为画横线-->
+    <hr/>
+    <!-- 输出整个列表-->
+    {{lster}}<br/>
+    <!-- for 循环输出列表前三个-->
+    {% for item in lster[:3]%}
+        换{{'一个：'+item}}<br/>
+    {%endfor%}
+    <!-- 输入-->
+    <hr/>
+</body>
+</html>
