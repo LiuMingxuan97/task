@@ -33,7 +33,7 @@
             pos_cam_mm = np.array([pix_cam_id[0] *Px , pix_cam_id[1]*Px, 1])
             return pos_cam_mm
         ```
-    2.  建立相机坐标
+    2.  像元坐标系转相机坐标系矩阵
 
         ```python
         def img2cam(Px, Py, F, principal_point_x, principal_point_y):
@@ -45,7 +45,7 @@
                                   [0, 0, -fc]])
             return R_img2cam
         ```
-    3.  建立卫星坐标
+    3.  相机坐标系转卫星坐标系矩阵
 
         ```python
         def cam2body():
@@ -54,7 +54,7 @@
                                    [0, 0, 1]])
             return R_cam2body
         ```
-    4.  建立轨道坐标
+    4.  卫星坐标系转轨道坐标系矩阵
 
         ```python
         def body2orb(roll, pitch, yaw):
@@ -95,7 +95,7 @@
                 eci_vel[i] = jstate[i+3]
             return eci_pos, eci_vel
         ```
-    6.  建立eci坐标
+    6.  轨道坐标系转eci坐标系
 
         ```python
         def orb2eci(r_ECI, v_ECI):
@@ -130,7 +130,7 @@
             R_body2eci_q = r.as_matrix()
             return R_body2eci_q
         ```
-    8.  建立ecec坐标
+    8.  eci坐标系转ecef坐标系矩阵
 
         ```python
         def eci2ecr(satatime):
@@ -147,4 +147,28 @@
                     R_eci2ecr[i,j] = mat[i][j] / pow(3,0.5)
             return R_eci2ecr
         ```
+
+## &#x20;校正矩阵构建
+
+roll、pitch、yall 欧拉角 描述轨道坐标系下卫星的转动姿态
+
+四元数 描述eci惯性坐标系下卫星的转动姿态
+
+使用rpy时需要先将卫星转到轨道坐标系再转到eci惯性坐标系
+
+```math
+R_{img2ecef} = R_{img2cam} * R_{cam2body} * R_{body2orb} * R_{orb2eci} * R_{eci2ecef}
+```
+
+使用四元素时：
+
+```math
+R_{body2eci} = Matrix_{q0,q1,q2,q3}
+```
+
+
+
+```math
+R_{img2ecef} = R_{img2cam} * R_{cam2body} * R_{body2eci} * R_{eci2ecef}
+```
 
