@@ -20,7 +20,7 @@ def img2ecef():
     x=1009105
     y=-5047454
     z=-4568021
-    vx, vy, vz = -0.68296, -5.20974, 5.604
+    vx, vy, vz = -682.96, -5209.74, 5604
     time_second = 1230768000 + 388728701
     sate_time = arrow.get(time_second)
     sate_time = sate_time.datetime

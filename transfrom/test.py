@@ -1,16 +1,22 @@
+import cv2
 import numpy as np
 
-def prosses(wgs_x, wgs_y, wgs_z, rpy:list, vx, vy, vz):
-    pass
 
+img = cv2.imread("/Users/liumingxuan/code/pycode/transfrom/640.jpg")
+pattern_size = (7,7)
+ret, corners = cv2.findChessboardCorners(img, pattern_size, None)
+cv2.drawChessboardCorners(img, pattern_size, corners, ret)
 
-def img2cam(principal_point_x, principal_point_y,fc,dpi):
-    x0_m = principal_point_x * dpi
-    y0_m = principal_point_y * dpi
-    
-    R_img2cam = np.array([[0, -1, x0_m*dpi], [1, 0, -y0_m*dpi], [0, 0, -fc]])
-    return RecursionError
-image_id = [3960,3960]
-pos_cam_mm = np.array([image_id[0], image_id[1], 1])
+world_points = np.zeros((pattern_size[0]*pattern_size[1], 3), np.float32)
+world_points[:,:2] = np.mgrid[0:pattern_size[0], 0:pattern_size[1]].T.reshape(-1,2)
 
-# img2cam()
+image_points = corners.reshape(-1, 2)
+ret, mtx, dist, rvecs, tvecs = cv2.calibrateCamera([world_points], [image_points], img.shape[:-1], None, None)
+
+undistorted_img = cv2.undistort(img, mtx, dist, None, mtx)
+print(dist.ravel())
+
+# cv2.imshow('ORI img', img)
+# cv2.imshow('Undistored img', undistorted_img)
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()
