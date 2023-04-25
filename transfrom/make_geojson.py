@@ -3,12 +3,15 @@ import json
 
 
 points = [
-    {"name": "Point 1", "coordinates": [-41.816042930779226, -76.13657011871047]},
-    {"name": "Point 2", "coordinates": [-41.82635276112756, -76.19398064484739]},
-    {"name": "Point 3", "coordinates": [-41.8365725688295, -76.25102610506781]},
-    {"name": "Point 3", "coordinates": [-41.84670367369686, -76.30771122331782]},
-    {"name": "Point 3", "coordinates": [-41.85674736775437, -76.36404063093751]},
-    {"name": "Point 3", "coordinates": [-41.86670491600722, -76.42001886910552]},
+    {"name": "scan1 1", "coordinates": [-76.42343496, -41.77437925, ]},
+    {"name": "scan1 2", "coordinates": [-76.64857326, -41.81455339, ]},
+    {"name": "scan1 3", "coordinates": [-76.86820047, -41.85337898, ]},
+    {"name": "scan2 1", "coordinates": [-76.44635353, -41.70732563, ]},
+    {"name": "scan2 2", "coordinates": [-76.67125228, -41.74746274, ]},
+    {"name": "scan2 3", "coordinates": [-76.89064558, -41.78625335, ]},
+    {"name": "scan3 1", "coordinates": [-76.4688726,  -41.64025592, ]},
+    {"name": "scan3 2", "coordinates": [-76.69354882, -41.68034247, ]},
+    {"name": "scan3 3", "coordinates": [-76.91272353, -41.71908466, ]},
 ]
 
 features = []
@@ -25,5 +28,5 @@ feature_collection = FeatureCollection(features)
 
 
 
-with open('point.geojson', 'w') as f:
+with open(r'D:\code\pycode\task\transfrom\img.geojson', 'w') as f:
     json.dump(feature_collection, f)

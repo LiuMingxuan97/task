@@ -10,18 +10,33 @@ import math
 '''
 参数
 '''
-roll, pitch, yaw = -0.3421, -0.1881, -0.0385066
+#第二景1行
+# roll, pitch, yaw = -0.34213234343175286, -0.18808692373940433, -0.03845675076128016
+# q0, q1,  q2, q3 = 0.4818, -0.03303, 0.874899, 0.0365
+# obs_x, obs_y, obs_z = 1005341.725887046, -5075846.286941519, -4537296.440034964
+# obs_pos = [obs_x, obs_y, obs_z]
+# obs_vx, obs_vy, obs_vz = -693.801947676284, -5175.541675830903, 5634.4814857223655
+# obs_vel = [obs_vx, obs_vy, obs_vz]
+# time_second = 1230768000 + 388728707.467712
+
+# #第二景3960行
+# roll, pitch, yaw = -0.3421, -0.1881, -0.0385066
+# q0, q1,  q2, q3 = 0.4818, -0.03303, 0.874899, 0.0365
+# obs_x, obs_y, obs_z =1004591.08, -5081433.5804, -4531206.1957
+# obs_pos = [obs_x, obs_y, obs_z]
+# obs_vx, obs_vy, obs_vz = -695.9209219793258, -5168.771531155607, 5640.48474229
+# obs_vel = [obs_vx, obs_vy, obs_vz]
+# time_second = 1230768000 + 388728708.548033
+
+#第二景7920行
+roll, pitch, yaw = -0.34213234343175286, -0.18808692373940433, -0.03845675076128016
 q0, q1,  q2, q3 = 0.4818, -0.03303, 0.874899, 0.0365
-# obs_x, obs_y, obs_z =1009100, -5047454, -4568021
-obs_x, obs_y, obs_z =1004591.08, -5081433.5804, -4531206.1957
+obs_x, obs_y, obs_z = 1003838.0508613762, -5087013.9310733375, -4525109.369029997, 
 obs_pos = [obs_x, obs_y, obs_z]
-obs_vx, obs_vy, obs_vz = -695.9209219793258, -5168.771531155607, 5640.48474229
+obs_vx, obs_vy, obs_vz = -698.0608083387155, -5161.982952750664, 5646.4701525787,
 obs_vel = [obs_vx, obs_vy, obs_vz]
-time_second = 1230768000 + 388728708.548033
-#相机参数
-Samples, Lines = 7920, 1
-# optical center (pixels) in x,y direction
-Cx, Cy = 3960, 3960
+time_second = 1230768000 + 388728709.628354
+
 # focal length (m)
 F=575.0e-3 
 # size of pixels in world units (m)
@@ -29,7 +44,7 @@ Px=4.6e-6
 Py=4.6e-6 
 major_radius=6378140
 minor_radius=6356750
-pix_cam_id = (0,5000)
+
 principal_point_x = 0.5
 principal_point_y = 3960
 
@@ -70,8 +85,8 @@ def ecr2eci(obs_pos, obs_vel, satatime):
     sate_time = arrow.get(satatime)
     sate_time = sate_time.datetime
     date_str = sate_time.strftime("%Y-%m-%dT%H:%M:%S.%fZ")
-    spice.furnsh('/Users/liumingxuan/code/pycode/transfrom/naif0012.tls')
-    spice.furnsh('/Users/liumingxuan/code/pycode/transfrom/earth_latest_high_prec.bpc')
+    spice.furnsh('D:/code/pycode/task/transfrom/naif0012.tls')
+    spice.furnsh('D:/code/pycode/task/transfrom/earth_latest_high_prec.bpc')
     et = spice.str2et(date_str)
     mat = spice.pxform('ITRF93', 'J2000', et)
     mat66_r2i = spice.sxform('ITRF93', 'J2000', et)
@@ -116,8 +131,8 @@ def eci2ecr(satatime):
     sate_time = arrow.get(satatime)
     sate_time = sate_time.datetime
     date_str = sate_time.strftime("%Y-%m-%dT%H:%M:%S.%fZ")
-    spice.furnsh('/Users/liumingxuan/code/pycode/transfrom/naif0012.tls')
-    spice.furnsh('/Users/liumingxuan/code/pycode/transfrom/earth_latest_high_prec.bpc')
+    spice.furnsh('D:/code/pycode/task/transfrom/naif0012.tls')
+    spice.furnsh('D:/code/pycode/task/transfrom/earth_latest_high_prec.bpc')
     et = spice.str2et(date_str)
     mat = spice.pxform('J2000', 'ITRF93',  et)
     for i in range(3):
@@ -159,39 +174,40 @@ def cal_pos(major_radius, minor_radius, look_vector, eci_pos):
 if __name__=='__main__':
     
     R_eci2ecr = eci2ecr(time_second)
- 
-    pos_cam_mm = pos_cam(pix_cam_id, Px)
-    R_img2cam = img2cam(Px, Py, F, principal_point_x, principal_point_y)
-    # print('R_img2cam:\n', R_img2cam)
-    look_vector = np.dot(pos_cam_mm, R_img2cam)
-    # print('look_vector', look_vector)
-   
-    
-    R_cam2body = cam2body()
-    # print('R_cam2body:\n', R_cam2body)
-    R_body2orb = body2orb(roll, pitch, yaw)
-    # print('R_body2orb:\n', R_body2orb)
-    eci_pos, eci_vel = ecr2eci(obs_pos, obs_vel, time_second)
-    # print('eci_pos',eci_pos)
-    # print('eci_vel',eci_vel)
-    R_orb2eci = orb2eci(eci_pos, eci_vel)
-    # print('R_orb2eci:\n', R_orb2eci)
-    R_body2eci = R_orb2eci.dot(R_body2orb)
-    # print('R_body2eci:\n', R_body2eci)
-    # R_img2eci = R_img2cam.dot(R_cam2body.dot( R_body2eci))
-    # print('R_img2eci1:\n', R_img2eci)
-    R_img2eci = R_body2eci.dot(R_cam2body.dot(R_img2cam))
-    # print('R_img2eci:\n', R_img2eci)
-    
-    v_i = np.dot(R_img2eci, pos_cam_mm)
-    # print('v_i', v_i)
-    
-    ground_point = cal_pos(major_radius, minor_radius, v_i, eci_pos)
-    # print('ground_point:\n', ground_point)
-    sate_time = arrow.get(time_second)
-    sate_time = sate_time.datetime
-    lat, lon, alt = pymap3d.eci2geodetic(ground_point[0], ground_point[1], ground_point[2], sate_time)
-    print(lat, lon, alt)
-    pos_cam_mm_1 = pos_cam(pix_cam_id, Px)
+    for i in [0, 3960, 7920]:
+        pix_cam_id = (0,i)
+        pos_cam_mm = pos_cam(pix_cam_id, Px)
+        R_img2cam = img2cam(Px, Py, F, principal_point_x, principal_point_y)
+        # print('R_img2cam:\n', R_img2cam)
+        look_vector = np.dot(pos_cam_mm, R_img2cam)
+        # print('look_vector', look_vector)
+      
+        
+        R_cam2body = cam2body()
+        # print('R_cam2body:\n', R_cam2body)
+        R_body2orb = body2orb(roll, pitch, yaw)
+        # print('R_body2orb:\n', R_body2orb)
+        eci_pos, eci_vel = ecr2eci(obs_pos, obs_vel, time_second)
+        # print('eci_pos',eci_pos)
+        # print('eci_vel',eci_vel)
+        R_orb2eci = orb2eci(eci_pos, eci_vel)
+        # print('R_orb2eci:\n', R_orb2eci)
+        R_body2eci = R_orb2eci.dot(R_body2orb)
+        # print('R_body2eci:\n', R_body2eci)
+        # R_img2eci = R_img2cam.dot(R_cam2body.dot( R_body2eci))
+        # print('R_img2eci1:\n', R_img2eci)
+        R_img2eci = R_body2eci.dot(R_cam2body.dot(R_img2cam))
+        # print('R_img2eci:\n', R_img2eci)
+        
+        v_i = np.dot(R_img2eci, pos_cam_mm)
+        # print('v_i', v_i)
+        
+        ground_point = cal_pos(major_radius, minor_radius, v_i, eci_pos)
+        # print('ground_point:\n', ground_point)
+        sate_time = arrow.get(time_second)
+        sate_time = sate_time.datetime
+        lat, lon, alt = pymap3d.eci2geodetic(ground_point[0], ground_point[1], ground_point[2], sate_time)
+        print(f'第{i}列经纬度：', lat, lon, alt)
+        pos_cam_mm_1 = pos_cam(pix_cam_id, Px)
     # print('pos_cam_mm_1', pos_cam_mm_1)
     
