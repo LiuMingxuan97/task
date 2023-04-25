@@ -1,0 +1,67 @@
+version: '3.5'
+services:
+
+    nasa-downloader_0_3000:
+      image: nasa-downloader:latest
+      container_name: nasa-downloader_0_3000
+      build:
+        dockerfile: Dockerfile
+        context: .
+      command: python download.py -s 0,3000
+      environment:
+        TZ: "Asia/Shanghai"
+      volumes:
+        - "./:/app"
+        - "./DemNasa30:/app/DemNasa30"
+
+    nasa-downloader_3000_6000:
+      image: nasa-downloader:latest
+      container_name: nasa-downloader_3000_6000
+      build:
+        dockerfile: Dockerfile
+        context: .
+      command: python download.py -s 3000,6000
+      environment:
+        TZ: "Asia/Shanghai"
+      volumes:
+        - "./:/app"
+        - "./DemNasa30:/app/DemNasa30"
+
+    nasa-downloader_6000_9000:
+      image: nasa-downloader:latest
+      container_name: nasa-downloader_6000_9000
+      build:
+        dockerfile: Dockerfile
+        context: .
+      command: python download.py -s 6000,9000
+      environment:
+        TZ: "Asia/Shanghai"
+      volumes:
+        - "./:/app"
+        - "./DemNasa30:/app/DemNasa30"
+
+    nasa-downloader_9000_12000:
+      image: nasa-downloader:latest
+      container_name: nasa-downloader_9000_12000
+      build:
+        dockerfile: Dockerfile
+        context: .
+      command: python download.py -s 9000,12000
+      environment:
+        TZ: "Asia/Shanghai"
+      volumes:
+        - "./:/app"
+        - "./DemNasa30:/app/DemNasa30"
+
+    nasa-downloader_12000_15000:
+      image: nasa-downloader:latest
+      container_name: nasa-downloader_12000_15000
+      build:
+        dockerfile: Dockerfile
+        context: .
+      command: python download.py -s 12000,15000
+      environment:
+        TZ: "Asia/Shanghai"
+      volumes:
+        - "./:/app"
+        - "./DemNasa30:/app/DemNasa30"

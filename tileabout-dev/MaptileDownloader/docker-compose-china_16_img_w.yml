@@ -1,0 +1,77 @@
+version: '3.5'
+services:
+
+  maptile-downloader-china_16_1_img_w:
+    image: tianditu
+    container_name: maptile-downloader-china_16_1_img_w
+    build:
+      dockerfile: Dockerfile
+      context: .
+    command: python main.py --storename=tianditu --bounds=113,43,120,36 --zxy=16,53339,53800,24081,25735
+    environment:
+      TZ: Asia/Shanghai
+      MAPSTYLE: img_w
+    volumes:
+      - "./:/app"
+      - "./logs/logs-china_1_12_img_w:/app/logs"
+      - "./storage:/app/storage"
+
+  maptile-downloader-china_16_2_img_w:
+    image: tianditu
+    container_name: maptile-downloader-china_16_2_img_w
+    build:
+      dockerfile: Dockerfile
+      context: .
+    command: python main.py --storename=tianditu --bounds=113,43,120,36 --zxy=16,53801,54000,24081,25735
+    environment:
+      TZ: Asia/Shanghai
+      MAPSTYLE: img_w
+    volumes:
+      - "./:/app"
+      - "./logs/logs-china_16_2_img_w:/app/logs"
+      - "./storage:/app/storage"
+
+  maptile-downloader-china_16_3_img_w:
+    image: tianditu
+    container_name: maptile-downloader-china_16_3_img_w
+    build:
+      dockerfile: Dockerfile
+      context: .
+    command: python main.py --storename=tianditu --bounds=113,43,120,36 --zxy=16,54001,54200,24081,25735
+    environment:
+      TZ: Asia/Shanghai
+      MAPSTYLE: img_w
+    volumes:
+      - "./:/app"
+      - "./logs/logs-china_16_3_img_w:/app/logs"
+      - "./storage:/app/storage"
+
+  maptile-downloader-china_16_4_img_w:
+    image: tianditu
+    container_name: maptile-downloader-china_16_4_img_w
+    build:
+      dockerfile: Dockerfile
+      context: .
+    command: python main.py --storename=tianditu --bounds=113,43,120,36 --zxy=16,54201,54400,24081,25735
+    environment:
+      TZ: Asia/Shanghai
+      MAPSTYLE: img_w
+    volumes:
+      - "./:/app"
+      - "./logs/logs-china_16_4_img_w:/app/logs"
+      - "./storage:/app/storage"
+
+  maptile-downloader-china_16_5_img_w:
+    image: tianditu
+    container_name: maptile-downloader-china_16_5_img_w
+    build:
+      dockerfile: Dockerfile
+      context: .
+    command: python main.py --storename=tianditu --bounds=113,43,120,36 --zxy=16,54401,54613,24081,25735
+    environment:
+      TZ: Asia/Shanghai
+      MAPSTYLE: img_w
+    volumes:
+      - "./:/app"
+      - "./logs/logs-china_16_5_img_w:/app/logs"
+      - "./storage:/app/storage"

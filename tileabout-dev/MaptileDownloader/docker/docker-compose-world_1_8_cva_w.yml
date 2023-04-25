@@ -1,0 +1,32 @@
+version: '3.5'
+services:
+
+  maptile-downloader-world_1_7_cva_w:
+    image: maptile-downloader:latest
+    container_name: maptile-downloader-world_1_7_cva_w
+    build:
+      dockerfile: Dockerfile
+      context: .
+    command: python main.py --storename=tianditu --bounds=-180,90,180,-90 --levels=1,7
+    environment:
+      TZ: Asia/Shanghai
+      MAPSTYLE: cva_w
+    volumes:
+      - "./:/app"
+      - "./logs/logs-world_1_7_cva_w:/app/logs"
+      - "./storage:/app/storage"
+
+  maptile-downloader-world_8_cva_w:
+    image: maptile-downloader:latest
+    container_name: maptile-downloader-world_8_cva_w
+    build:
+      dockerfile: Dockerfile
+      context: .
+    command: python main.py --storename=tianditu --bounds=-180,90,180,-90 --levels=8,8
+    environment:
+      TZ: Asia/Shanghai
+      MAPSTYLE: cva_w
+    volumes:
+      - "./:/app"
+      - "./logs/logs-world_8_cva_w:/app/logs"
+      - "./storage:/app/storage"
