@@ -67,6 +67,7 @@ def major(model):
     R_body2eci = R_orb2eci.dot(R_body2orb)
     print('R_body2eci:\n', R_body2eci)
     R_body2eci_q = q_rotation(q_list)
+    print('R_body2eci_q', R_body2eci_q)
     if model == 1:
         # 使用rpy构建本体到轨道，轨道到eci的旋转矩阵
         R_img2ecr = R_eci2ecr.dot(R_body2eci.dot(R_cam2body.dot(R_img2cam)))
@@ -98,8 +99,8 @@ def img2cam(Px, Py, F, principal_point_x, principal_point_y):
     fc = F
     x0 = principal_point_x * Px
     y0 = principal_point_y * Py
-    R_img2cam = np.array([[0, -1, x0],
-                          [1, 0, -y0],
+    R_img2cam = np.array([[1, 0, -x0],
+                          [0, 1, -y0],
                           [0, 0, -fc]])
     return R_img2cam
 
@@ -221,7 +222,7 @@ def cal_pos(major_radius, minor_radius, look_vector, eci_pos):
 if __name__=='__main__':
     # model=1,使用rpy;
     # model=2,使用四元数
-    major(model=2)
+    major(model=1)
     
 
     

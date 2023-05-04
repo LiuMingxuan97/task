@@ -85,8 +85,8 @@ def ecr2eci(obs_pos, obs_vel, satatime):
     sate_time = arrow.get(satatime)
     sate_time = sate_time.datetime
     date_str = sate_time.strftime("%Y-%m-%dT%H:%M:%S.%fZ")
-    spice.furnsh('D:/code/pycode/task/transfrom/naif0012.tls')
-    spice.furnsh('D:/code/pycode/task/transfrom/earth_latest_high_prec.bpc')
+    spice.furnsh('/Users/liumingxuan/code/pycode/transfrom/earth_latest_high_prec.bpc')
+    spice.furnsh('/Users/liumingxuan/code/pycode/transfrom/naif0012.tls')
     et = spice.str2et(date_str)
     mat = spice.pxform('ITRF93', 'J2000', et)
     mat66_r2i = spice.sxform('ITRF93', 'J2000', et)
@@ -131,8 +131,8 @@ def eci2ecr(satatime):
     sate_time = arrow.get(satatime)
     sate_time = sate_time.datetime
     date_str = sate_time.strftime("%Y-%m-%dT%H:%M:%S.%fZ")
-    spice.furnsh('D:/code/pycode/task/transfrom/naif0012.tls')
-    spice.furnsh('D:/code/pycode/task/transfrom/earth_latest_high_prec.bpc')
+    spice.furnsh('/Users/liumingxuan/code/pycode/transfrom/naif0012.tls')
+    spice.furnsh('/Users/liumingxuan/code/pycode/transfrom/earth_latest_high_prec.bpc')
     et = spice.str2et(date_str)
     mat = spice.pxform('J2000', 'ITRF93',  et)
     for i in range(3):
@@ -203,7 +203,7 @@ if __name__=='__main__':
         # print('v_i', v_i)
         
         ground_point = cal_pos(major_radius, minor_radius, v_i, eci_pos)
-        # print('ground_point:\n', ground_point)
+        print('ground_point:\n', ground_point)
         sate_time = arrow.get(time_second)
         sate_time = sate_time.datetime
         lat, lon, alt = pymap3d.eci2geodetic(ground_point[0], ground_point[1], ground_point[2], sate_time)
