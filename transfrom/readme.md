@@ -21,6 +21,9 @@
 *   earth\_latest\_high\_prec.bpc  &#x20;
 
 <!---->
+*   elevation\_azimuth.py          计算天顶角和方位角  &#x20;
+
+<!---->
 
 *   naif0012.tls        spice需要的两个文件 &#x20;
 
